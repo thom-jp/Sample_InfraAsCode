@@ -1,0 +1,23 @@
+---
+- hosts: servers
+  tasks:
+  - name: apt update
+    become: true
+    apt:
+      update_cache: yes
+      name: docker
+      state: present
+
+  - name: create directory
+    file:
+      path: /home/pi/tmp
+      state: directory
+      owner: pi
+      mode: 0755
+
+  - name: copy file
+    copy:
+      src: /etc/hosts
+      dest: /home/pi/tmp/hosts
+      owner: pi
+      mode: 0644
